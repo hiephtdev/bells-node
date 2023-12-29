@@ -1,0 +1,29 @@
+version: '3.3'
+
+services:
+  bellnode:
+    image: hiepht/bells-core:r2.0.0
+    command: cp ./config/bells.conf /root/.bells/bells.conf
+    restart: always
+    container_name: bell-node-ct
+    ports:
+      - "22555:22555"
+    volumes:
+      - bellchainstate:/root/.bells/chainstate
+      - bellblocks:/root/.bells/blocks
+      - bellbackups:/root/.bells/backups
+      - bellconfig:/root/.bells/bells.conf
+      - belldatabase:/root/.bells/database
+    networks:
+      - bell_network
+
+volumes:
+  bellchainstate:
+  bellblocks:
+  bellbackups:
+  bellconfig:
+  belldatabase:
+
+networks:
+  bell_network:
+    driver: bridge
